@@ -108,7 +108,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("dataset", help="OOD dataset")
     parser.add_argument("architecture", help="Name of the architecture")
-    parser.add_argument("network_path", help="Path to the learned model")
+    parser.add_argument("network_path", help="Path to the trained model")
     parser.add_argument("--base_db", help="ID dataset", default="cifar10")
     parser.add_argument("--random_state", help="ID dataset", default=0, type=int)
 
