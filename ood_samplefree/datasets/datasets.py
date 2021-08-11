@@ -326,7 +326,7 @@ class CIFAR10SubByDict(CIFAR10Sub):
         return tt
 
 
-class CIFAR10h3(CIFAR10Sub):
+class CIFAR10h3(CIFAR10SubByDict):
     @property
     def class_dict(self):
         # Animals
@@ -339,7 +339,7 @@ class CIFAR10h3(CIFAR10Sub):
             7: 5, # Horse
         }
 
-class CIFAR10h4(CIFAR10Sub):
+class CIFAR10h4(CIFAR10SubByDict):
     @property
     def class_dict(self):
         # Transportation
