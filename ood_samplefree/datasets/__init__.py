@@ -1,5 +1,6 @@
 from .datasets import CIFAR10, CIFAR100, SVHN, MNIST, FashionMNIST, STL10, \
-    Uniform, Gaussian, TinyImageNet, LSUNTestSet, ImageNet
+    Uniform, Gaussian, TinyImageNet, LSUNTestSet, ImageNet, CIFAR10h1, \
+    CIFAR10h2, CIFAR10h3, CIFAR10h4
 from .custom_transforms import CropAugmented, CropHzFlipAugmented, \
     FlipsAugmented, CropHzVFlipAugmented
 from .utils import get_transform
