@@ -2,8 +2,8 @@ import warnings
 
 import torch
 
-from samplefree_ood.datasets import Uniform
-from samplefree_ood.features import OneClassSum
+from ood_samplefree.datasets import Uniform
+from ood_samplefree.features import OneClassSum
 from ..features.baselines import BaselineMonitor
 from ..features.batchnorm import BatchNormMonitor
 from ..features.latent import LatentMonitor, create_latent_saver

@@ -2,11 +2,11 @@ import pickle
 import torch
 import os
 
-from samplefree_ood.datasets import __DATASETS__, get_transform
+from ood_samplefree.datasets import __DATASETS__, get_transform
 
-from samplefree_ood.architectures import __ARCHITECTURES__, \
+from ood_samplefree.architectures import __ARCHITECTURES__, \
     __ARCHITECTURES_224__
-from samplefree_ood.experiments import OODStreamerWithSummaries
+from ood_samplefree.experiments import OODStreamerWithSummaries
 
 NUM_WORKER = 4
 BATCH_SIZE = 256
@@ -19,7 +19,7 @@ def run(dataset, architecture, network_path, base_db, random_state):
                                        "".format(base_db, architecture,
                                                  random_state, dataset))
 
-    folder = os.path.expanduser("~/data/samplefree_ood/")
+    folder = os.path.expanduser("~/data/ood_samplefree/")
     uniform_path = os.path.join(folder, "{}_{}_{}_uniform_full.npy"
                                         "".format(base_db,
                                                   architecture,
