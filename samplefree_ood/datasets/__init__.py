@@ -15,12 +15,20 @@ __DATASETS__ = {
     "gaussian": Gaussian,
     "TinyImageNet": TinyImageNet,
     "LSUNTestSet": LSUNTestSet,
-    "Imagenet": ImageNet
+    "Imagenet": ImageNet,
+    "cifar10-h1": CIFAR10h1,
+    "cifar10-h2": CIFAR10h2,
+    "cifar10-h3": CIFAR10h3,
+    "cifar10-h4": CIFAR10h4,
 }
 
 __AUGMENTED_DATASETS__ = {
     "cifar10": CropHzFlipAugmented().partial(CIFAR10),
     "cifar100": CropHzFlipAugmented().partial(CIFAR100),
+    "cifar10-h1": CropHzFlipAugmented().partial(CIFAR10h1),
+    "cifar10-h2": CropHzFlipAugmented().partial(CIFAR10h2),
+    "cifar10-h3": CropHzFlipAugmented().partial(CIFAR10h3),
+    "cifar10-h4": CropHzFlipAugmented().partial(CIFAR10h4),
 
 }
 

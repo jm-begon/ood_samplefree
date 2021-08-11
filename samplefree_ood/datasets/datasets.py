@@ -256,6 +256,102 @@ class CIFAR10(FullDataset):
 
         return train_set, valid_set, test_set
 
+
+class CIFAR10Sub(CIFAR10):
+    @property
+    def folder(self):
+        if self._folder is not None:
+            return self._folder
+        return get_data_folder("cifar10")
+
+    def get_idx(self, set):
+        return None
+
+    def get_target_transform(self):
+        return None
+
+    def get_ls_vs_ts(self):
+        train_set = self._get_pytorch_class()(
+            root=self.folder, train=True,
+            download=True,
+            transform=self.ls_transform,
+            target_transform=self.get_target_transform()
+        )
+
+        test_set = self._get_pytorch_class()(
+            root=self.folder, train=False,
+            download=True,
+            transform=self.ts_transform,
+            target_transform=self.get_target_transform()
+        )
+
+        train_set = Subset(train_set, self.get_idx(train_set))
+        test_set = Subset(test_set, self.get_idx(test_set))
+
+        train_set, valid_set = self.vs_from_ls(train_set)
+
+        return train_set, valid_set, test_set
+
+
+class CIFAR10h1(CIFAR10Sub):
+    def get_idx(self, set):
+        return np.arange(len(set))[np.array(set.targets) < 5]
+
+
+
+class CIFAR10h2(CIFAR10Sub):
+    def get_idx(self, set):
+        return np.arange(len(set))[np.array(set.targets) >= 5]
+
+    def get_target_transform(self):
+        def minus5(y):
+            return y-5
+        return minus5
+
+class CIFAR10SubByDict(CIFAR10Sub):
+    @property
+    def class_dict(self):
+        return {}
+
+    def get_idx(self, set):
+        targets = set.targets
+        idx = np.zeros(len(targets), dtype=bool)
+        for k in self.class_dict.keys():
+            idx[targets == k] = 1
+        return np.arange(len(set))[idx]
+
+    def get_target_transform(self):
+        def tt(y):
+            return self.class_dict[y]
+        return tt
+
+
+class CIFAR10h3(CIFAR10Sub):
+    @property
+    def class_dict(self):
+        # Animals
+        return {
+            2: 0, # Bird
+            3: 1, # Cat
+            4: 2, # Deer
+            5: 3, # Dog
+            6: 4, # Frog
+            7: 5, # Horse
+        }
+
+class CIFAR10h4(CIFAR10Sub):
+    @property
+    def class_dict(self):
+        # Transportation
+        return {
+            0: 0, # Airplane
+            1: 1, # Automobile
+            8: 2, # Ship
+            9: 3, # Truck
+        }
+
+
+
 class CIFAR100(CIFAR10):
 
     @classmethod
