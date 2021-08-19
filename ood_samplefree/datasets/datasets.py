@@ -294,12 +294,24 @@ class CIFAR10Sub(CIFAR10):
 
 
 class CIFAR10h1(CIFAR10Sub):
+    @classmethod
+    def get_default_n_outputs(cls):
+        return 5
+
+    # ((0.4906783730988687, 0.48564628201193144, 0.4507957476488378),
+    #  (0.24568281480926538, 0.24182938967544665, 0.262337429493959))
     def get_idx(self, set):
         return np.arange(len(set))[np.array(set.targets) < 5]
 
 
 
 class CIFAR10h2(CIFAR10Sub):
+    @classmethod
+    def get_default_n_outputs(cls):
+        return 5
+
+    # ((0.49244486082187516, 0.47859913455263986, 0.4420886881641992),
+    #  (0.24864007840290336, 0.24549073613857716, 0.26107928750510423))
     def get_idx(self, set):
         return np.arange(len(set))[np.array(set.targets) >= 5]
 
@@ -309,16 +321,17 @@ class CIFAR10h2(CIFAR10Sub):
         return minus5
 
 class CIFAR10SubByDict(CIFAR10Sub):
+
     @property
     def class_dict(self):
         return {}
 
     def get_idx(self, set):
-        targets = set.targets
+        targets = np.array(set.targets)
         idx = np.zeros(len(targets), dtype=bool)
         for k in self.class_dict.keys():
             idx[targets == k] = 1
-        return np.arange(len(set))[idx]
+        return np.arange(len(targets))[idx]
 
     def get_target_transform(self):
         def tt(y):
@@ -327,6 +340,15 @@ class CIFAR10SubByDict(CIFAR10Sub):
 
 
 class CIFAR10h3(CIFAR10SubByDict):
+    @classmethod
+    def get_default_n_outputs(cls):
+        return 6
+
+    @classmethod
+    def get_default_normalization(cls):
+        return transforms.Normalize((0.4882, 0.4660, 0.3993),
+                                    (0.2380, 0.2323, 0.2414))
+
     @property
     def class_dict(self):
         # Animals
@@ -340,6 +362,15 @@ class CIFAR10h3(CIFAR10SubByDict):
         }
 
 class CIFAR10h4(CIFAR10SubByDict):
+    @classmethod
+    def get_default_n_outputs(cls):
+        return 4
+
+    @classmethod
+    def get_default_normalization(cls):
+        return transforms.Normalize((0.4965, 0.5063, 0.5172),
+                                    (0.2601, 0.2579, 0.2748))
+
     @property
     def class_dict(self):
         # Transportation
